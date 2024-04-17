@@ -115,5 +115,9 @@ class Motors:
         Motors(500,-50).moveRightMotor()
 
     def greenRight():
-        Motors(500,50).moveRightMotor()
         Motors(500,50).moveLeftMotor()
+        Motors(500,50).moveRightMotor()
+        
+    def greenBoth():
+        Motors(500,50).moveLeftMotor()
+        Motors(500,-50).moveRightMotor()
