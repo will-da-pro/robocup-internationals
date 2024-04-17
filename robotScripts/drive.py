@@ -2,7 +2,7 @@ import gpiozero
 from time import process_time
 
 class driveBase():
-    def __init__(self, port1: int, port2: int, port3: int, port4: int, defaultSpeed=100) -> None:
+    def __init__(self, port1: int, port2: int, port3: int, port4: int, axelTrack: float, defaultSpeed=100) -> None:
         """
         A class for all your robot driving needs. Use these functions for any movement.
 
@@ -21,6 +21,7 @@ class driveBase():
 
         self.lMotor = gpiozero.Motor(port1, port3, pwm=True)
         self.rMotor = gpiozero.Motor(port2, port4, pwm=True)
+        self.axelTrack = axelTrack
 
         self.defaultSpeed = max(0, min(defaultSpeed, 100))
 
@@ -38,17 +39,25 @@ class driveBase():
         if speed == None:
             speed = self.defaultSpeed
             
-        turnAngle = max(-100, min(turnAngle, 100))
+        turnAngle = max(-1, min(turnAngle, 1))
         
         lSpeed = 0
         rSpeed = 0
         
-        if turnAngle < 0:
-            rSpeed = -turnAngle * speed / 100
-            lSpeed = (100 + turnAngle) * speed / 100
+        if turnAngle == 0:
+            lSpeed, rSpeed = speed
         else:
-            rSpeed = (100 - turnAngle) * speed / 100
-            lSpeed = turnAngle * speed / 100
+            r1 = (- self.axelTrack/2 - 1/turnAngle + turnAngle) ** 2
+            r2 = (self.axelTrack/2 - 1/turnAngle + turnAngle) ** 2
+            
+            if r1 < r2:
+                f = r1/r2
+                lSpeed = r1 * f * speed
+                rSpeed = r2 * speed
+            else:
+                f = r2/r1
+                lSpeed = r1 * speed
+                rSpeed = r2 * f * speed
             
         self.lMotor.forward(lSpeed)
         self.rMotor.forward(rSpeed)
