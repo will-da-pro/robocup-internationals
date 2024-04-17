@@ -2,7 +2,7 @@ import gpiozero
 from time import process_time
 
 class DriveBase():
-    def __init__(self, port1: int, port2: int, port3: int, port4: int, axelTrack: float, defaultSpeed=100) -> None:
+    def __init__(self, port1: int, port2: int, port3: int, port4: int, axleTrack: float, defaultSpeed=100) -> None:
         """
         A class for all your robot driving needs. Use these functions for any movement.
 
@@ -21,7 +21,7 @@ class DriveBase():
 
         self.lMotor: gpiozero.Motor = gpiozero.Motor(port1, port3, pwm=True)
         self.rMotor: gpiozero.Motor = gpiozero.Motor(port2, port4, pwm=True)
-        self.axelTrack = axelTrack
+        self.axleTrack = axleTrack
 
         self.defaultSpeed = max(0, min(defaultSpeed, 100))
 
@@ -48,8 +48,8 @@ class DriveBase():
             lSpeed = speed
             rSpeed = speed
         else:
-            r1 = (- self.axelTrack/2 - 1/turnAngle + turnAngle) ** 2
-            r2 = (self.axelTrack/2 - 1/turnAngle + turnAngle) ** 2
+            r1 = (- self.axleTrack/2 - 1/turnAngle + turnAngle) ** 2
+            r2 = (self.axleTrack/2 - 1/turnAngle + turnAngle) ** 2
             
             if r1 < r2:
                 f = r1/r2
@@ -60,17 +60,17 @@ class DriveBase():
                 lSpeed = speed
                 rSpeed = f * speed
                 
-            print(-self.axelTrack/2 - 1/turnAngle + turnAngle)
-            print(self.axelTrack/2 - 1/turnAngle + turnAngle)
+            print(-self.axleTrack/2 - 1/turnAngle + turnAngle)
+            print(self.axleTrack/2 - 1/turnAngle + turnAngle)
             
-            if -1 < (-self.axelTrack/2 - 1/turnAngle + turnAngle) and (-self.axelTrack/2 - 1/turnAngle + turnAngle) < 0 or turnAngle == -1:
+            if -1 < (-self.axleTrack/2 - 1/turnAngle + turnAngle) and (-self.axleTrack/2 - 1/turnAngle + turnAngle) < 0 or turnAngle == -1:
                 #self.lMotor.forward(lSpeed)
                 print("l backward " + str(lSpeed))
             else:
                 #self.lMotor.backward(lSpeed)
                 print("l forward " + str(lSpeed))
 
-            if 0 < (self.axelTrack/2 - 1/turnAngle + turnAngle) and (self.axelTrack/2 - 1/turnAngle + turnAngle) < 1 or turnAngle == 1:
+            if 0 < (self.axleTrack/2 - 1/turnAngle + turnAngle) and (self.axleTrack/2 - 1/turnAngle + turnAngle) < 1 or turnAngle == 1:
                 #self.lMotor.forward(rSpeed)
                 print("r backward " + str(rSpeed))
             else:
