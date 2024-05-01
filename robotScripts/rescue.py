@@ -6,13 +6,13 @@ def rescue():
     # rotate left approx 120 degrees
     # Engage huskylens
     # Start rotating right
-    # Start looking for can
-    # If can is detected, stop rotating
-    # Rotate until can is in center
-    # move forwards and grab can
+    # Start looking for BALLS
+    # If A BALL is detected, stop rotating
+    # Rotate until BALL is in center
+    # move forwards and grab BALLS
     # move back
-    # Rotate until facing block
-    # Move forwards to block
-    # Lift can up
+    # Rotate until facing THE HOLE
+    # Move forwards to THE HOLE
+    # Lift BALL INTO HOLE
     
     pass
