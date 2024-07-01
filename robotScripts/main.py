@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 import time
 from Follower import LineFollower
-from motorDriver import Motors
+from drive import DriveBase
 from PidCalc import PID
 from checkDistTOF import checkDistance
 import cv2
@@ -10,7 +10,7 @@ import RPi.GPIO as GPIO
 lastError = 0
 pastErrors = 0
 distance = 0
-motors = Motors()
+motors = DriveBase(1, 2, 3, 4, 2, 100)
 follower = LineFollower()
 time.sleep(1) #NESSESARY WHY? IDK BUT IT WORKS maybe it needs to start up bruh idk, it took me too long to work this out
 while True:

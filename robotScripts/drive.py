@@ -101,9 +101,14 @@ class DriveBase():
         """
 
         self.stop()
+        
+        if distance >= 0:
+            self.lMotor.forward(speed)
+            self.rMotor.forward(speed)
+        else:
+            self.lMotor.backward(speed)
+            self.rMotor.backward(speed)
 
-        self.lMotor.forward(speed)
-        self.rMotor.forward(speed)
 
         timeToStop = process_time + distance
         while process_time < timeToStop:
